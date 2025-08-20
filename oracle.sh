@@ -12,7 +12,7 @@ RESET="\033[0m"
 # =============================
 menu() {
     clear
-    echo -e "${GREEN}=== 甲骨文管理菜单 (v1.0) ===${RESET}"
+    echo -e "${GREEN}=== 甲骨文管理菜单 ===${RESET}"
     echo -e "${GREEN}当前时间: $(date '+%Y-%m-%d %H:%M:%S')${RESET}"
     echo -e "${GREEN}1)  甲骨文救砖${RESET}"
     echo -e "${GREEN}2)  开启 ROOT 登录${RESET}"
