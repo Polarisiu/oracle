@@ -12,63 +12,64 @@ RESET="\033[0m"
 # =============================
 menu() {
     clear
-    echo -e "${GREEN}=== 甲骨文管理菜单 ===${RESET}"
-    echo -e "${GREEN}01) 甲骨文救砖${RESET}"
-    echo -e "${GREEN}02) 开启 ROOT 登录${RESET}"
-    echo -e "${GREEN}03) 一键重装系统${RESET}"
-    echo -e "${GREEN}04) 恢复 IPv6${RESET}"
-    echo -e "${GREEN}05) 安装保活 Oracle${RESET}"
-    echo -e "${GREEN}06) 安装 lookbusy 保活${RESET}"
-    echo -e "${GREEN}07) 安装 R 探针${RESET}"
-    echo -e "${GREEN}08) y 探长${RESET}"
-    echo -e "${GREEN}09) OCI 抢机${RESET}"
+    echo -e "${GREEN}=== 甲骨文管理菜单 (v1.0) ===${RESET}"
+    echo -e "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo -e "${GREEN}1)  甲骨文救砖${RESET}"
+    echo -e "${GREEN}2)  开启 ROOT 登录${RESET}"
+    echo -e "${GREEN}3)  一键重装系统${RESET}"
+    echo -e "${GREEN}4)  恢复 IPv6${RESET}"
+    echo -e "${GREEN}5)  安装保活 Oracle${RESET}"
+    echo -e "${GREEN}6)  安装 lookbusy 保活${RESET}"
+    echo -e "${GREEN}7)  安装 R 探针${RESET}"
+    echo -e "${GREEN}8)  y 探长${RESET}"
+    echo -e "${GREEN}9)  OCI 抢机${RESET}"
     echo -e "${GREEN}10) 计算圆周率${RESET}"
-    echo -e "${GREEN} 0) 退出${RESET}"
+    echo -e "${GREEN}0)  退出${RESET}"
     echo
     read -p $'\033[32m请选择操作 (0-10): \033[0m' choice
 
     case $choice in
-        01)
+        1)
             echo -e "${GREEN}正在执行甲骨文救砖...${RESET}"
             bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/ocijz.sh)
             pause
             ;;
-        02)
+        2)
             echo -e "${GREEN}正在开启 ROOT 登录...${RESET}"
             bash <(curl -sL https://raw.githubusercontent.com/iu683/unblock/main/xgmim.sh)
             pause
             ;;
-        03)
+        3)
             echo -e "${GREEN}正在一键重装系统...${RESET}"
             bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/ddoci.sh)
             pause
             ;;
-        04)
+        4)
             echo -e "${GREEN}正在恢复 IPv6...${RESET}"
             bash <(curl -L -s jhb.ovh/jb/v6.sh)
             pause
             ;;
-        05)
+        5)
             echo -e "${GREEN}正在安装保活 Oracle...${RESET}"
             bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/Oracle-server-keep-alive-script/-/raw/main/oalive.sh)
             pause
             ;;
-        06)
+        6)
             echo -e "${GREEN}正在安装 lookbusy 保活...${RESET}"
             bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/lookbusy.sh)
             pause
             ;;
-        07)
+        7)
             echo -e "${GREEN}正在安装 R 探针...${RESET}"
             bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/roci.sh)
             pause
             ;;
-        08)
+        8)
             echo -e "${GREEN}正在运行 y 探长...${RESET}"
             bash <(curl -sL https://raw.githubusercontent.com/iu683/vps-tools/main/oci-helper_install.sh)
             pause
             ;;
-        09)
+        9)
             echo -e "${GREEN}正在运行 OCI 抢机...${RESET}"
             bash <(curl -sL https://raw.githubusercontent.com/iu683/vps-tools/main/oci-docker.sh)
             pause
@@ -79,12 +80,12 @@ menu() {
             pause
             ;;
         0)
+            echo -e "${GREEN}已退出，再见！${RESET}"
             exit 0
             ;;
         *)
             echo -e "${RED}无效选择，请重新输入${RESET}"
             sleep 1
-            menu
             ;;
     esac
 }
@@ -94,10 +95,11 @@ menu() {
 # =============================
 pause() {
     read -p $'\033[32m按回车键返回菜单...\033[0m'
-    menu
 }
 
 # =============================
-# 启动菜单
+# 主循环
 # =============================
-menu
+while true; do
+    menu
+done
