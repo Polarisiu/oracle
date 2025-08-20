@@ -23,9 +23,9 @@ menu() {
     echo -e "${GREEN}08) y 探长${RESET}"
     echo -e "${GREEN}09) OCI 抢机${RESET}"
     echo -e "${GREEN}10) 计算圆周率${RESET}"
-    echo -e "${GREEN}0)  退出${RESET}"
+    echo -e "${GREEN} 0) 退出${RESET}"
     echo
-    read -p $'\033[32m请选择操作 (0,01-10): \033[0m' choice
+    read -p $'\033[32m请选择操作 (0-10): \033[0m' choice
 
     case $choice in
         01)
