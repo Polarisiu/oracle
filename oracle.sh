@@ -46,7 +46,7 @@ menu() {
             ;;
         4)
             echo -e "${GREEN}正在恢复 IPv6...${RESET}"
-            bash <(curl -L -s jhb.ovh/jb/v6.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/ipv6.sh)
             pause
             ;;
         5)
