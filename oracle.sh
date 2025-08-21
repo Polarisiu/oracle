@@ -20,9 +20,9 @@ menu() {
     echo -e "${GREEN}4)  恢复 IPv6${RESET}"
     echo -e "${GREEN}5)  安装保活 Oracle${RESET}"
     echo -e "${GREEN}6)  安装 lookbusy 保活${RESET}"
-    echo -e "${GREEN}7)  安装 R 探针${RESET}"
-    echo -e "${GREEN}8)  y 探长${RESET}"
-    echo -e "${GREEN}9)  OCI 抢机${RESET}"
+    echo -e "${GREEN}7)  安装 R 探长${RESET}"
+    echo -e "${GREEN}8)  安装 Y 探长${RESET}"
+    echo -e "${GREEN}9)  安装oci-start${RESET}"
     echo -e "${GREEN}10) 计算圆周率${RESET}"
     echo -e "${GREEN}0)  退出${RESET}"
     echo
@@ -31,17 +31,17 @@ menu() {
     case $choice in
         1)
             echo -e "${GREEN}正在执行甲骨文救砖...${RESET}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/ocijz.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/ocibrick.sh)
             pause
             ;;
         2)
             echo -e "${GREEN}正在开启 ROOT 登录...${RESET}"
-            bash <(curl -sL https://raw.githubusercontent.com/iu683/unblock/main/xgmim.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/tool/main/xgroot.sh)
             pause
             ;;
         3)
             echo -e "${GREEN}正在一键重装系统...${RESET}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/ddoci.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/DDoracle.sh)
             pause
             ;;
         4)
@@ -56,27 +56,27 @@ menu() {
             ;;
         6)
             echo -e "${GREEN}正在安装 lookbusy 保活...${RESET}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/lookbusy.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/lookbusy.sh)
             pause
             ;;
         7)
-            echo -e "${GREEN}正在安装 R 探针...${RESET}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/roci.sh)
+            echo -e "${GREEN}正在安装 R 探长...${RESET}"
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/R-Bot.sh)
             pause
             ;;
         8)
-            echo -e "${GREEN}正在运行 y 探长...${RESET}"
-            bash <(curl -sL https://raw.githubusercontent.com/iu683/vps-tools/main/oci-helper_install.sh)
+            echo -e "${GREEN}正在运行 Y 探长...${RESET}"
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/Yoci-helper.sh)
             pause
             ;;
         9)
-            echo -e "${GREEN}正在运行 OCI 抢机...${RESET}"
-            bash <(curl -sL https://raw.githubusercontent.com/iu683/vps-tools/main/oci-docker.sh)
+            echo -e "${GREEN}正在运行 oci-start...${RESET}"
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/oci-start.sh)
             pause
             ;;
         10)
             echo -e "${GREEN}正在计算圆周率...${RESET}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/iu683/unblock/main/jsyzl.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/toy/main/pai.sh)
             pause
             ;;
         0)
