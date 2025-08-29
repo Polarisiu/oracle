@@ -5,6 +5,7 @@
 # =============================
 GREEN="\033[32m"
 RED="\033[31m"
+YELLOW="\033[33m"
 RESET="\033[0m"
 
 # =============================
@@ -13,20 +14,21 @@ RESET="\033[0m"
 menu() {
     clear
     echo -e "${GREEN}=== 甲骨文管理菜单 ===${RESET}"
-    echo -e "${GREEN}当前时间: $(date '+%Y-%m-%d %H:%M:%S')${RESET}"
-    echo -e "${GREEN}1)  甲骨文救砖${RESET}"
-    echo -e "${GREEN}2)  开启 ROOT 登录${RESET}"
-    echo -e "${GREEN}3)  一键重装系统${RESET}"
-    echo -e "${GREEN}4)  恢复 IPv6${RESET}"
-    echo -e "${GREEN}5)  安装保活 Oracle${RESET}"
-    echo -e "${GREEN}6)  安装 lookbusy 保活${RESET}"
-    echo -e "${GREEN}7)  安装 R 探长${RESET}"
-    echo -e "${GREEN}8)  安装 Y 探长${RESET}"
-    echo -e "${GREEN}9)  安装oci-start${RESET}"
-    echo -e "${GREEN}10) 计算圆周率${RESET}"
-    echo -e "${GREEN}0)  退出${RESET}"
+    echo -e "${YELLOW}当前时间: $(date '+%Y-%m-%d %H:%M:%S')${RESET}"
+    printf "${GREEN}[01] 甲骨文救砖${RESET}\n"
+    printf "${GREEN}[02] 开启 ROOT 登录${RESET}\n"
+    printf "${GREEN}[03] 一键重装系统${RESET}\n"
+    printf "${GREEN}[04] 恢复 IPv6${RESET}\n"
+    printf "${GREEN}[05] 安装保活 Oracle${RESET}\n"
+    printf "${GREEN}[06] 安装 lookbusy 保活${RESET}\n"
+    printf "${GREEN}[07] 安装 R 探长${RESET}\n"
+    printf "${GREEN}[08] 安装 Y 探长${RESET}\n"
+    printf "${GREEN}[09] 安装 oci-start${RESET}\n"
+    printf "${GREEN}[10] 计算圆周率${RESET}\n"
+    printf "${GREEN}[0 ] 退出${RESET}\n"
     echo
     read -p $'\033[32m请选择操作 (0-10): \033[0m' choice
+
 
     case $choice in
         1)
