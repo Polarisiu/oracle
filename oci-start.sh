@@ -66,8 +66,9 @@ while true; do
     echo -e "${GREEN}3) 更新容器${RESET}"
     echo -e "${GREEN}4) 查看访问地址${RESET}"
     echo -e "${GREEN}5) 查看容器日志${RESET}"
-    echo -e "${GREEN}6) 退出${RESET}"
-    read -rp "请选择操作 [1-6]: " choice
+    echo -e "${GREEN}6) 重启容器${RESET}"
+    echo -e "${GREEN}7) 退出${RESET}"
+    read -rp "请选择操作 [1-7]: " choice
 
     case $choice in
         1)
@@ -117,6 +118,16 @@ while true; do
             fi
             ;;
         6)
+            echo -e "${CYAN}正在重启容器...${RESET}"
+            if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
+                docker restart "$CONTAINER_NAME"
+                echo -e "${GREEN}容器已重启成功${RESET}"
+                echo -e "${CYAN}访问地址: ${GREEN}http://$SERVER_IP:$APP_PORT${RESET}"
+            else
+                echo -e "${RED}容器不存在，请先安装${RESET}"
+            fi
+            ;;
+        7)
             echo "退出脚本"
             exit 0
             ;;
