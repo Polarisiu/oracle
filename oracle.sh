@@ -62,7 +62,7 @@ menu() {
     printf "${GREEN}[12] 卸载菜单脚本${RESET}\n"
     printf "${GREEN}[0 ] 退出${RESET}\n"
     echo
-    read -p $'\033[32m请选择操作 (0-12): \033[0m' choice
+    read -p $'\033[32m请选择操作: \033[0m' choice
 
     case $choice in
         1)
