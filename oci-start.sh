@@ -1,138 +1,99 @@
 #!/bin/bash
-set -euo pipefail
-# ========================================
-# OCI Docker 管理脚本 (固定端口9856)
-# ========================================
 
-RED="\033[31m"
 GREEN="\033[32m"
-YELLOW="\033[33m"
-CYAN="\033[36m"
 RESET="\033[0m"
 
-APP_PORT=9856
-CONTAINER_NAME="oci-start"
-SCRIPT_URL="https://raw.githubusercontent.com/doubleDimple/shell-tools/master/docker.sh"
-SCRIPT_FILE="docker.sh"
+APP_NAME="OCI-Start"
+SCRIPT_URL="https://raw.githubusercontent.com/doubleDimple/shell-tools/master/oci-start.sh"
+SCRIPT_NAME="oci-start.sh"
 
-# 创建目录并进入
-DIR="$HOME/oci-start-docker"
-mkdir -p "$DIR"
-cd "$DIR" || exit
+# 创建文件夹并下载脚本
+setup_script() {
+    echo -e "${GREEN}🚀 正在安装应用...${RESET}"
+    mkdir -p oci-start && cd oci-start
+    wget -O $SCRIPT_NAME $SCRIPT_URL
+    chmod +x $SCRIPT_NAME
+    echo -e "${GREEN}✅ 安装并设置完毕,选择2启动应用${RESET}"
+    read -p "按回车键返回菜单..."
+    show_menu
+}
 
-# 下载 docker.sh，如果不存在或更新
-download_script() {
-    echo -e "${CYAN}检查 docker.sh 脚本...${RESET}"
-    if [[ ! -f "$SCRIPT_FILE" ]]; then
-        wget -O "$SCRIPT_FILE" "$SCRIPT_URL"
-        chmod +x "$SCRIPT_FILE"
-        echo -e "${GREEN}docker.sh 下载完成${RESET}"
+# 安装应用
+install_app() {
+    ./oci-start.sh install
+    echo -e "${GREEN}✅ 应用已安装${RESET}"
+    read -p "按回车键返回菜单..."
+    show_menu
+}
+
+# 启动应用
+start_app() {
+    ./oci-start.sh start
+    echo -e "${GREEN}✅ 应用已启动${RESET}"
+    read -p "按回车键返回菜单..."
+    show_menu
+}
+
+# 停止应用
+stop_app() {
+    ./oci-start.sh stop
+    echo -e "${GREEN}✅ 应用已停止${RESET}"
+    read -p "按回车键返回菜单..."
+    show_menu
+}
+
+# 重启应用
+restart_app() {
+    ./oci-start.sh restart
+    echo -e "${GREEN}✅ 应用已重启${RESET}"
+    read -p "按回车键返回菜单..."
+    show_menu
+}
+
+# 更新应用
+update_app() {
+    ./oci-start.sh update
+    echo -e "${GREEN}✅ 应用已更新到最新版本${RESET}"
+    read -p "按回车键返回菜单..."
+    show_menu
+}
+
+# 卸载应用
+uninstall_app() {
+    read -p "⚠️ 确认要完全卸载应用吗？(y/N): " confirm
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        ./oci-start.sh uninstall
+        echo -e "${GREEN}✅ 应用已完全卸载${RESET}"
     else
-        wget -O "$SCRIPT_FILE.tmp" "$SCRIPT_URL"
-        if ! cmp -s "$SCRIPT_FILE" "$SCRIPT_FILE.tmp"; then
-            mv "$SCRIPT_FILE.tmp" "$SCRIPT_FILE"
-            chmod +x "$SCRIPT_FILE"
-            echo -e "${GREEN}docker.sh 已更新${RESET}"
-        else
-            rm -f "$SCRIPT_FILE.tmp"
-            echo -e "${CYAN}docker.sh 已是最新版本${RESET}"
-        fi
+        echo "❌ 卸载操作已取消"
     fi
+    read -p "按回车键返回菜单..."
+    show_menu
 }
 
-# 获取服务器公网 IP 或本地 IP
-SERVER_IP=$(curl -s ifconfig.me 2>/dev/null || hostname -I | awk '{print $1}' || echo "localhost")
-
-# 检查端口占用
-check_port() {
-    if lsof -i:"$APP_PORT" >/dev/null 2>&1; then
-        echo -e "${RED}端口 $APP_PORT 已被占用${RESET}"
-        read -rp "是否强制释放端口? (y/n): " ans
-        if [[ "$ans" =~ ^[Yy]$ ]]; then
-            PID=$(lsof -t -i:"$APP_PORT")
-            kill -9 "$PID"
-            echo -e "${GREEN}端口已释放${RESET}"
-        else
-            exit 1
-        fi
-    fi
-}
-
-# 菜单
-while true; do
-    echo -e "\n${GREEN}==== oci-start 管理 ====${RESET}"
+# 显示主菜单
+show_menu() {
+    clear
+    echo -e "${GREEN}=== OCI-Start 管理菜单 ===${RESET}"
     echo -e "${GREEN}1) 安装应用${RESET}"
-    echo -e "${GREEN}2) 卸载应用及数据${RESET}"
-    echo -e "${GREEN}3) 更新容器${RESET}"
-    echo -e "${GREEN}4) 查看访问地址${RESET}"
-    echo -e "${GREEN}5) 查看容器日志${RESET}"
-    echo -e "${GREEN}6) 重启容器${RESET}"
-    echo -e "${GREEN}7) 退出${RESET}"
-    read -rp "请选择操作 [1-7]: " choice
-
+    echo -e "${GREEN}2) 启动应用${RESET}"
+    echo -e "${GREEN}3) 停止应用${RESET}"
+    echo -e "${GREEN}4) 重启应用${RESET}"
+    echo -e "${GREEN}5) 更新应用${RESET}"
+    echo -e "${GREEN}6) 卸载应用${RESET}"
+    echo -e "${GREEN}0) 退出${RESET}"
+    echo -e "${GREEN}===========================${RESET}"
+    read -p "请选择: " choice
     case $choice in
-        1)
-            check_port
-            download_script
-            echo -e "${GREEN}正在安装应用...${RESET}"
-            ./"$SCRIPT_FILE" install
-            echo -e "${CYAN}访问地址: ${GREEN}http://$SERVER_IP:$APP_PORT${RESET}"
-            ;;
-        2)
-            echo -e "${RED}正在卸载应用及数据...${RESET}"
-            if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
-                docker stop "$CONTAINER_NAME"
-                docker rm -v "$CONTAINER_NAME"
-                echo -e "${GREEN}容器及数据已删除${RESET}"
-            else
-                echo -e "${YELLOW}未找到容器，可能已删除${RESET}"
-            fi
-            if [[ -d "$DIR" ]]; then
-                rm -rf "$DIR"
-                echo -e "${GREEN}目录 $DIR 及脚本已彻底删除${RESET}"
-            else
-                echo -e "${YELLOW}目录 $DIR 不存在，已清理完毕${RESET}"
-            fi
-            ;;
-        3)
-            echo -e "${CYAN}正在更新容器...${RESET}"
-            if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
-                docker stop "$CONTAINER_NAME"
-                docker rm "$CONTAINER_NAME"
-            fi
-            download_script
-            ./"$SCRIPT_FILE" install
-            echo -e "${CYAN}访问地址: ${GREEN}http://$SERVER_IP:$APP_PORT${RESET}"
-            echo -e "${GREEN}容器更新完成并已启动${RESET}"
-            ;;
-        4)
-            echo -e "${CYAN}访问地址: ${GREEN}http://$SERVER_IP:$APP_PORT${RESET}"
-            ;;
-        5)
-            echo -e "${YELLOW}容器日志 (${CONTAINER_NAME}):${RESET}"
-            read -rp "是否实时跟随日志? (y/n): " follow
-            if [[ "$follow" =~ ^[Yy]$ ]]; then
-                docker logs -f "$CONTAINER_NAME"
-            else
-                docker logs "$CONTAINER_NAME"
-            fi
-            ;;
-        6)
-            echo -e "${CYAN}正在重启容器...${RESET}"
-            if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
-                docker restart "$CONTAINER_NAME"
-                echo -e "${GREEN}容器已重启成功${RESET}"
-                echo -e "${CYAN}访问地址: ${GREEN}http://$SERVER_IP:$APP_PORT${RESET}"
-            else
-                echo -e "${RED}容器不存在，请先安装${RESET}"
-            fi
-            ;;
-        7)
-            echo "退出脚本"
-            exit 0
-            ;;
-        *)
-            echo -e "${RED}无效选项，请重新选择${RESET}"
-            ;;
+        1) setup_script ;;
+        2) start_app ;;
+        3) stop_app ;;
+        4) restart_app ;;
+        5) update_app ;;
+        6) uninstall_app ;;
+        0) exit ;;
+        *) echo "❌ 无效选择"; sleep 1; show_menu ;;
     esac
-done
+}
+
+show_menu
