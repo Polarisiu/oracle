@@ -36,7 +36,7 @@ start_app() {
 
 # 停止应用
 stop_app() {
-    ./oci-start.sh stop
+    oci-start stop
     echo -e "${GREEN}✅ 应用已停止${RESET}"
     read -p "按回车键返回菜单..."
     show_menu
@@ -44,7 +44,7 @@ stop_app() {
 
 # 重启应用
 restart_app() {
-    ./oci-start.sh restart
+    oci-start restart
     echo -e "${GREEN}✅ 应用已重启${RESET}"
     read -p "按回车键返回菜单..."
     show_menu
@@ -52,7 +52,7 @@ restart_app() {
 
 # 更新应用
 update_app() {
-    ./oci-start.sh update
+    oci-start update
     echo -e "${GREEN}✅ 应用已更新到最新版本${RESET}"
     read -p "按回车键返回菜单..."
     show_menu
@@ -62,7 +62,7 @@ update_app() {
 uninstall_app() {
     read -p "⚠️ 确认要完全卸载应用吗？(y/N): " confirm
     if [[ "$confirm" =~ ^[Yy]$ ]]; then
-        ./oci-start.sh uninstall
+        oci-start uninstall
         echo -e "${GREEN}✅ 应用已完全卸载${RESET}"
     else
         echo "❌ 卸载操作已取消"
