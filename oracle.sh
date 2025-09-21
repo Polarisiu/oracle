@@ -94,7 +94,7 @@ menu() {
             pause
             ;;
         8)
-            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/Yoci-helper.sh)
+            bash <(wget -qO- https://github.com/Yohann0617/oci-helper/releases/latest/download/sh_oci-helper_install.sh)
             pause
             ;;
         9)
