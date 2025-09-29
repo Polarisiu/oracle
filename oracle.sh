@@ -11,8 +11,7 @@ RESET="\033[0m"
 # =============================
 # 脚本路径
 # =============================
-APP_DIR="/root/app-store"
-SCRIPT_PATH="$APP_DIR/oracle.sh"
+SCRIPT_PATH="/usr/local/bin/oracle.sh"
 SCRIPT_URL="https://raw.githubusercontent.com/Polarisiu/oracle/main/oracle.sh"
 BIN_LINK_DIR="/usr/local/bin"
 
@@ -20,7 +19,7 @@ BIN_LINK_DIR="/usr/local/bin"
 # 暂停函数
 # =============================
 pause() {
-    read -p "回车返回菜单..." 
+    read -p "回车返回菜单..."
 }
 
 # =============================
@@ -63,12 +62,10 @@ menu() {
             exec "$SCRIPT_PATH"
             ;;
         12)
-            echo -e "${RED}⚠️ 即将卸载脚本及软链接${RESET}"
+            echo -e "${RED}⚠️ 即将卸载脚本${RESET}"
             read -p "确认卸载? (y/n): " confirm
             if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
-                rm -f "$BIN_LINK_DIR/o" "$BIN_LINK_DIR/O"
-                rm -f "$SCRIPT_PATH"
-                rmdir --ignore-fail-on-non-empty "$APP_DIR"
+                rm -f "$BIN_LINK_DIR/o" "$BIN_LINK_DIR/O" "$SCRIPT_PATH"
                 echo -e "${GREEN}✅ 卸载完成${RESET}"
                 exit 0
             fi
@@ -84,7 +81,6 @@ menu() {
 # =============================
 if [ ! -f "$SCRIPT_PATH" ]; then
     echo -e "${YELLOW}首次运行，正在保存脚本到 $SCRIPT_PATH ...${RESET}"
-    mkdir -p "$APP_DIR"
     curl -fsSL -o "$SCRIPT_PATH" "$SCRIPT_URL"
     chmod +x "$SCRIPT_PATH"
     ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/o"
