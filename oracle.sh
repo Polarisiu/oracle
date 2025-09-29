@@ -35,9 +35,8 @@ menu() {
     echo -e "${GREEN}[06] 安装 lookbusy 保活${RESET}"
     echo -e "${GREEN}[07] 安装 Y 探长${RESET}"
     echo -e "${GREEN}[08] 安装 oci-start${RESET}"
-    echo -e "${GREEN}[09] 计算圆周率${RESET}"
-    echo -e "${GREEN}[10] 更新脚本${RESET}"
-    echo -e "${GREEN}[11] 卸载脚本${RESET}"
+    echo -e "${GREEN}[88] 更新脚本${RESET}"
+    echo -e "${GREEN}[99] 卸载脚本${RESET}"
     echo -e "${GREEN}[0 ] 退出${RESET}"
     read -p "请选择: " choice
     case $choice in
@@ -49,8 +48,7 @@ menu() {
         6)  bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/lookbusy.sh) && pause ;;
         7)  bash <(wget -qO- https://github.com/Yohann0617/oci-helper/releases/latest/download/sh_oci-helper_install.sh) && pause ;;
         8)  bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/app-store/main/oci-start.sh) && pause ;;
-        9) bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/toy/main/pai.sh) && pause ;;
-        10)
+        88)
             echo -e "${YELLOW}🔄 正在更新脚本...${RESET}"
             curl -fsSL -o "$SCRIPT_PATH" "$SCRIPT_URL"
             chmod +x "$SCRIPT_PATH"
@@ -59,7 +57,7 @@ menu() {
             echo -e "${GREEN}✅ 脚本已更新，可继续使用 o/O 启动${RESET}"
             exec "$SCRIPT_PATH"
             ;;
-        11)
+        99)
             echo -e "${YELLOW}正在卸载脚本...${RESET}"
             rm -f "$BIN_LINK_DIR/o" "$BIN_LINK_DIR/O" "$SCRIPT_PATH"
             echo -e "${GREEN}✅ 卸载完成${RESET}"
