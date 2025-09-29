@@ -171,7 +171,6 @@ while true; do
   echo -e "${GREEN}3) 查看活跃脚本状态${RESET}"
   echo -e "${GREEN}4) 修改活跃脚本参数${RESET}"
   echo -e "${GREEN}0) 退出${RESET}"
-  echo
   read -e -p "请输入选项: " opt
 
   case "$opt" in
