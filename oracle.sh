@@ -11,7 +11,7 @@ RESET="\033[0m"
 # =============================
 # 脚本路径
 # =============================
-SCRIPT_PATH="/usr/local/bin/oracle.sh"
+SCRIPT_PATH="/root/oracle.sh"
 SCRIPT_URL="https://raw.githubusercontent.com/Polarisiu/oracle/main/oracle.sh"
 BIN_LINK_DIR="/usr/local/bin"
 
@@ -26,7 +26,7 @@ pause() {
 # 菜单函数
 # =============================
 menu() {
-    echo -e "${GREEN}=== 甲骨文管理菜单 ===${RESET}"
+    echo -e "${GREEN}======甲骨文管理菜单======${RESET}"
     echo -e "${GREEN}[01] 甲骨文救砖${RESET}"
     echo -e "${GREEN}[02] 开启 ROOT 登录${RESET}"
     echo -e "${GREEN}[03] 一键重装系统${RESET}"
@@ -62,13 +62,10 @@ menu() {
             exec "$SCRIPT_PATH"
             ;;
         12)
-            echo -e "${RED}⚠️ 即将卸载脚本${RESET}"
-            read -p "确认卸载? (y/n): " confirm
-            if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
-                rm -f "$BIN_LINK_DIR/o" "$BIN_LINK_DIR/O" "$SCRIPT_PATH"
-                echo -e "${GREEN}✅ 卸载完成${RESET}"
-                exit 0
-            fi
+            echo -e "${YELLOW}正在卸载脚本...${RESET}"
+            rm -f "$BIN_LINK_DIR/o" "$BIN_LINK_DIR/O" "$SCRIPT_PATH"
+            echo -e "${GREEN}✅ 卸载完成${RESET}"
+            exit 0
             ;;
         0) exit 0 ;;
         *) echo -e "${RED}无效选择，请重新输入${RESET}" && pause ;;
