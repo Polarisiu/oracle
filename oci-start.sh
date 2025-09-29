@@ -13,26 +13,12 @@ setup_script() {
     mkdir -p oci-start && cd oci-start
     wget -O $SCRIPT_NAME $SCRIPT_URL
     chmod +x $SCRIPT_NAME
-    echo -e "${GREEN}✅ 安装并设置完毕,选择2启动应用${RESET}"
-    read -p "按回车键返回菜单..."
-    show_menu
-}
-
-# 安装应用
-install_app() {
-    ./oci-start.sh install
-    echo -e "${GREEN}✅ 应用已安装${RESET}"
-    read -p "按回车键返回菜单..."
-    show_menu
-}
-
-# 启动应用
-start_app() {
     ./oci-start.sh start
-    echo -e "${GREEN}✅ 应用已启动${RESET}"
     read -p "按回车键返回菜单..."
     show_menu
 }
+
+
 
 # 停止应用
 stop_app() {
@@ -57,7 +43,12 @@ update_app() {
     read -p "按回车键返回菜单..."
     show_menu
 }
-
+# 查看启动状态
+status_app() {
+    oci-start.sh status
+    read -p "按回车键返回菜单..."
+    show_menu
+}
 # 卸载应用
 uninstall_app() {
     read -p "⚠️ 确认要完全卸载应用吗？(y/N): " confirm
@@ -76,21 +67,19 @@ show_menu() {
     clear
     echo -e "${GREEN}=== OCI-Start 管理菜单 ===${RESET}"
     echo -e "${GREEN}1) 安装应用${RESET}"
-    echo -e "${GREEN}2) 启动应用${RESET}"
-    echo -e "${GREEN}3) 停止应用${RESET}"
-    echo -e "${GREEN}4) 重启应用${RESET}"
-    echo -e "${GREEN}5) 更新应用${RESET}"
-    echo -e "${GREEN}6) 卸载应用${RESET}"
+    echo -e "${GREEN}2) 停止应用${RESET}"
+    echo -e "${GREEN}3) 重启应用${RESET}"
+    echo -e "${GREEN}4) 更新应用${RESET}"
+    echo -e "${GREEN}5) 卸载应用${RESET}"
     echo -e "${GREEN}0) 退出${RESET}"
     echo -e "${GREEN}===========================${RESET}"
     read -p "请选择: " choice
     case $choice in
         1) setup_script ;;
-        2) start_app ;;
-        3) stop_app ;;
-        4) restart_app ;;
-        5) update_app ;;
-        6) uninstall_app ;;
+        2) stop_app ;;
+        3) restart_app ;;
+        4) update_app ;;
+        5) uninstall_app ;;
         0) exit ;;
         *) echo "❌ 无效选择"; sleep 1; show_menu ;;
     esac
