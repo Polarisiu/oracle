@@ -13,7 +13,7 @@ RESET="\033[0m"
 # =============================
 APP_DIR="/root/app-store"
 SCRIPT_PATH="$APP_DIR/oracle.sh"
-SCRIPT_URL="https://raw.githubusercontent.com/Polarisiu/app-store/main/oracle.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/Polarisiu/oracle/main/oracle.sh"
 BIN_LINK_DIR="/usr/local/bin"
 
 # =============================
