@@ -55,8 +55,7 @@ menu() {
     echo -e "${GREEN}[11] 更新菜单脚本${RESET}"
     echo -e "${GREEN}[12] 卸载菜单脚本${RESET}"
     echo -e "${GREEN}[0 ] 退出${RESET}"
-    echo
-    read -p $'\033[32m请选择操作: \033[0m' choice
+    read -p $' 请选择操作:' choice
 
     case $choice in
         1)
