@@ -9,37 +9,32 @@ YELLOW="\033[33m"
 RESET="\033[0m"
 
 # =============================
-# 本地脚本路径
+# 脚本路径
 # =============================
-LOCAL_SCRIPT="$HOME/oracle.sh"
+APP_DIR="/root/app-store"
+SCRIPT_PATH="$APP_DIR/oracle.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/Polarisiu/app-store/main/oracle.sh"
+BIN_LINK_DIR="/usr/local/bin"
 
 # =============================
-# 自动下载本地脚本（如果不存在）
+# 首次运行自动安装
 # =============================
-if [ ! -f "$LOCAL_SCRIPT" ]; then
-    echo -e "${GREEN}📥 下载脚本到本地: $LOCAL_SCRIPT${RESET}"
-    curl -sL https://raw.githubusercontent.com/Polarisiu/oracle/main/oracle.sh -o "$LOCAL_SCRIPT"
-    chmod +x "$LOCAL_SCRIPT"
+if [ ! -f "$SCRIPT_PATH" ]; then
+    echo -e "${YELLOW}首次运行，正在保存脚本到 $SCRIPT_PATH ...${RESET}"
+    mkdir -p "$APP_DIR"
+    curl -fsSL -o "$SCRIPT_PATH" "$SCRIPT_URL"
+    chmod +x "$SCRIPT_PATH"
+    ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/o"
+    ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/O"
+    echo -e "${GREEN}✅ 已完成安装，可使用 o 或 O 命令快速启动${RESET}"
 fi
 
 # =============================
-# 自动添加快捷键 o / O（首次提示）
+# 暂停函数
 # =============================
-add_alias() {
-    local added=false
-    if ! grep -q "alias o=" ~/.bashrc; then
-        echo "alias o='$LOCAL_SCRIPT'" >> ~/.bashrc
-        added=true
-    fi
-    if ! grep -q "alias O=" ~/.bashrc; then
-        echo "alias O='$LOCAL_SCRIPT'" >> ~/.bashrc
-        added=true
-    fi
-    if [ "$added" = true ]; then
-        echo -e "${GREEN}✅ 已添加快捷键：o 和 O，可在终端输入 o 或 O 启动脚本,重启终端生效${RESET}"
-    fi
+pause() {
+    read -p "按回车键继续..." key
 }
-add_alias
 
 # =============================
 # 菜单函数
@@ -47,20 +42,19 @@ add_alias
 menu() {
     clear
     echo -e "${GREEN}=== 甲骨文管理菜单 ===${RESET}"
-    echo -e "${YELLOW}当前时间: $(date '+%Y-%m-%d %H:%M:%S')${RESET}"
-    printf "${GREEN}[01] 甲骨文救砖${RESET}\n"
-    printf "${GREEN}[02] 开启 ROOT 登录${RESET}\n"
-    printf "${GREEN}[03] 一键重装系统${RESET}\n"
-    printf "${GREEN}[04] 恢复 IPv6${RESET}\n"
-    printf "${GREEN}[05] 安装保活 Oracle${RESET}\n"
-    printf "${GREEN}[06] 安装 lookbusy 保活${RESET}\n"
-    printf "${GREEN}[07] 安装 R 探长${RESET}\n"
-    printf "${GREEN}[08] 安装 Y 探长${RESET}\n"
-    printf "${GREEN}[09] 安装 oci-start${RESET}\n"
-    printf "${GREEN}[10] 计算圆周率${RESET}\n"
-    printf "${GREEN}[11] 更新菜单脚本${RESET}\n"
-    printf "${GREEN}[12] 卸载菜单脚本${RESET}\n"
-    printf "${GREEN}[0 ] 退出${RESET}\n"
+    echo -e "${GREEN}[01] 甲骨文救砖${RESET}"
+    echo -e "${GREEN}[02] 开启 ROOT 登录${RESET}"
+    echo -e "${GREEN}[03] 一键重装系统${RESET}"
+    echo -e "${GREEN}[04] 恢复 IPv6${RESET}"
+    echo -e "${GREEN}[05] 安装保活 Oracle${RESET}"
+    echo -e "${GREEN}[06] 安装 lookbusy 保活${RESET}"
+    echo -e "${GREEN}[07] 安装 R 探长${RESET}"
+    echo -e "${GREEN}[08] 安装 Y 探长${RESET}"
+    echo -e "${GREEN}[09] 安装 oci-start${RESET}"
+    echo -e "${GREEN}[10] 计算圆周率${RESET}"
+    echo -e "${GREEN}[11] 更新菜单脚本${RESET}"
+    echo -e "${GREEN}[12] 卸载菜单脚本${RESET}"
+    echo -e "${GREEN}[0 ] 退出${RESET}"
     echo
     read -p $'\033[32m请选择操作: \033[0m' choice
 
@@ -98,7 +92,7 @@ menu() {
             pause
             ;;
         9)
-            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/oci-start.sh)
+            bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/app-store/main/oci-start.sh)
             pause
             ;;
         10)
@@ -106,24 +100,23 @@ menu() {
             pause
             ;;
         11)
-            echo -e "${GREEN}🔄 更新菜单脚本...${RESET}"
-            curl -sL https://raw.githubusercontent.com/Polarisiu/oracle/main/oracle.sh -o "$LOCAL_SCRIPT"
-            chmod +x "$LOCAL_SCRIPT"
-            echo -e "${GREEN}✅ 已更新本地脚本${RESET}"
-            exec "$LOCAL_SCRIPT"
+            echo -e "${YELLOW}🔄 正在更新脚本...${RESET}"
+            curl -fsSL -o "$SCRIPT_PATH" "$SCRIPT_URL"
+            chmod +x "$SCRIPT_PATH"
+            ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/o"
+            ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/O"
+            echo -e "${GREEN}✅ 脚本已更新，可继续使用 o/O 启动${RESET}"
+            exec "$SCRIPT_PATH"
             ;;
         12)
-            echo -e "${RED}⚠️ 即将卸载脚本及快捷键 o/O${RESET}"
-            read -p "确认卸载？(y/N): " confirm
-            if [[ "$confirm" =~ ^[Yy]$ ]]; then
-                sed -i '/alias o=/d' ~/.bashrc
-                sed -i '/alias O=/d' ~/.bashrc
-                rm -f "$LOCAL_SCRIPT"
-                echo -e "${GREEN}✅ 脚本已卸载，快捷键已删除${RESET}"
+            echo -e "${RED}⚠️ 即将卸载脚本及软链接${RESET}"
+            read -p "确认卸载? (y/n): " confirm
+            if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
+                rm -f "$BIN_LINK_DIR/o" "$BIN_LINK_DIR/O"
+                rm -f "$SCRIPT_PATH"
+                rmdir --ignore-fail-on-non-empty "$APP_DIR"
+                echo -e "${GREEN}✅ 卸载完成${RESET}"
                 exit 0
-            else
-                echo -e "${YELLOW}取消卸载${RESET}"
-                pause
             fi
             ;;
         0)
@@ -131,21 +124,11 @@ menu() {
             ;;
         *)
             echo -e "${RED}无效选择，请重新输入${RESET}"
-            sleep 1
+            pause
             ;;
     esac
-}
 
-# =============================
-# 返回菜单函数
-# =============================
-pause() {
-    read -p $'\033[32m按回车键返回菜单...\033[0m'
-}
-
-# =============================
-# 主循环
-# =============================
-while true; do
     menu
-done
+}
+
+menu
