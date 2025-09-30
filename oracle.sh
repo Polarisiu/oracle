@@ -26,6 +26,7 @@ pause() {
 # 菜单函数
 # =============================
 menu() {
+    clear
     echo -e "${GREEN}======甲骨文管理菜单======${RESET}"
     echo -e "${GREEN}[01] 甲骨文救砖${RESET}"
     echo -e "${GREEN}[02] 开启 ROOT 登录${RESET}"
