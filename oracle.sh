@@ -35,9 +35,11 @@ menu() {
     echo -e "${GREEN}[06] 安装 lookbusy 保活${RESET}"
     echo -e "${GREEN}[07] 安装 Y 探长${RESET}"
     echo -e "${GREEN}[08] 安装 oci-start${RESET}"
+    echo -e "${GREEN}-------------------------${RESET}"
     echo -e "${GREEN}[88] 更新脚本${RESET}"
     echo -e "${GREEN}[99] 卸载脚本${RESET}"
-    echo -e "${GREEN}[0 ] 退出${RESET}"
+    echo -e "${GREEN}[ 0] 退出${RESET}"
+    echo -e "${GREEN}-------------------------${RESET}"
     read -p "请选择: " choice
     case $choice in
         1)  bash <(curl -fsSL https://raw.githubusercontent.com/Polarisiu/oracle/main/ocibrick.sh) && pause ;;
