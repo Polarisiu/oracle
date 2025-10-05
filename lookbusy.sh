@@ -171,7 +171,7 @@ while true; do
   echo -e "${GREEN}3) 查看活跃脚本状态${RESET}"
   echo -e "${GREEN}4) 修改活跃脚本参数${RESET}"
   echo -e "${GREEN}0) 退出${RESET}"
-  read -e -p "请输入选项: " opt
+ read -e -p "$(echo -e ${GREEN}请输入选项: ${RESET})" opt
 
   case "$opt" in
     1) install_lookbusy ;;
@@ -179,6 +179,6 @@ while true; do
     3) status_lookbusy ;;
     4) modify_lookbusy ;;
     0) exit 0 ;;
-    *) echo "无效选项"; sleep 1 ;;
+    *) echo -e "${RED}无效选择${RESET}"; sleep 1 ;;
   esac
 done
