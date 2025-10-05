@@ -2,6 +2,7 @@
 
 GREEN="\033[32m"
 RESET="\033[0m"
+RED="\033[31m"
 
 APP_NAME="OCI-Start"
 SCRIPT_URL="https://raw.githubusercontent.com/doubleDimple/shell-tools/master/oci-start.sh"
@@ -72,7 +73,7 @@ show_menu() {
     echo -e "${GREEN}4) 更新应用${RESET}"
     echo -e "${GREEN}5) 卸载应用${RESET}"
     echo -e "${GREEN}0) 退出${RESET}"
-    read -p "请选择: " choice
+    read -p "$(echo -e ${GREEN}请选择:${RESET}) " choice
     case $choice in
         1) setup_script ;;
         2) stop_app ;;
@@ -80,7 +81,7 @@ show_menu() {
         4) update_app ;;
         5) uninstall_app ;;
         0) exit ;;
-        *) echo "❌ 无效选择"; sleep 1; show_menu ;;
+        *) echo -e "${RED}无效选择${RESET}"; sleep 1; show_menu ;;
     esac
 }
 
