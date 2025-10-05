@@ -178,7 +178,7 @@ while true; do
     2) uninstall_lookbusy ;;
     3) status_lookbusy ;;
     4) modify_lookbusy ;;
-    0) echo "退出"; exit 0 ;;
+    0) exit 0 ;;
     *) echo "无效选项"; sleep 1 ;;
   esac
 done
