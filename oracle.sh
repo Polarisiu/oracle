@@ -67,7 +67,7 @@ menu() {
             echo -e "${GREEN}✅ 卸载完成${RESET}"
             exit 0
             ;;
-        00) exit 0 ;;
+      00|0) exit 0 ;;
         *) echo -e "${RED}无效选择，请重新输入${RESET}" && pause ;;
     esac
     menu
