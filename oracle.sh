@@ -28,9 +28,10 @@ pause() {
 # 菜单函数
 # =============================
 menu() {
+    clear
     echo -e "${BLUE}====== 甲骨文管理菜单 ======${RESET}"
     echo -e "${YELLOW}[01] 甲骨文救砖${RESET}"
-    echo -e "${YELLOW}[02] 开启 ROOT 登录${RESET}"
+    echo -e "${YELLOW}[02] 开启ROOT登录${RESET}"
     echo -e "${YELLOW}[03] 一键重装系统${RESET}"
     echo -e "${YELLOW}[04] 恢复IPv6${RESET}"
     echo -e "${YELLOW}[05] 安装保活Oracle${RESET}"
@@ -76,7 +77,7 @@ menu() {
 # 首次运行自动安装
 # =============================
 if [ ! -f "$SCRIPT_PATH" ]; then
-    echo -e "${YELLOW}首次运行，正在保存脚本到 $SCRIPT_PATH ...${RESET}"
+    echo -e "${YELLOW}首次运行，正在安装脚本...${RESET}"
     curl -fsSL -o "$SCRIPT_PATH" "$SCRIPT_URL"
     chmod +x "$SCRIPT_PATH"
     ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/o"
