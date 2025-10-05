@@ -82,7 +82,7 @@ if [ ! -f "$SCRIPT_PATH" ]; then
     ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/o"
     ln -sf "$SCRIPT_PATH" "$BIN_LINK_DIR/O"
     echo -e "${GREEN}✅ 安装完成${RESET}"
-    echo -e "${GREEN}💡 快捷键已添加：o 或 O 可快速启动${RESET}"
+    echo -e "${GREEN}✅ 快捷键已添加：o 或 O 可快速启动${RESET}"
 fi
 
 menu
