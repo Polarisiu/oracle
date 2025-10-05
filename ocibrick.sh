@@ -39,7 +39,7 @@ menu() {
     echo -e "${GREEN}3) 创建新的 tmux 工作区${RESET}"
     echo -e "${GREEN}4) 返回已有 tmux 工作区${RESET}"
     echo -e "${GREEN}0) 退出${RESET}"
-    read -p $'\033[32m请选择操作 (0-4): \033[0m' choice
+    read -p $'\033[32m请选择操作: \033[0m' choice
     case $choice in
         1)
             echo -e "${GREEN}当前附加卷列表:${RESET}"
