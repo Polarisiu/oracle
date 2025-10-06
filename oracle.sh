@@ -9,6 +9,7 @@ RED="\033[31m"
 BLUE="\033[34m"
 RESET="\033[0m"
 BOLD="\033[1m"
+ORANGE='\033[38;5;208m'
 
 # =============================
 # 脚本路径
@@ -29,7 +30,7 @@ pause() {
 # =============================
 menu() {
     clear
-    echo -e "${BLUE}====== 甲骨文管理菜单 ======${RESET}"
+    echo -e "${ORANGE}====== 甲骨文管理菜单 ======${RESET}"
     echo -e "${YELLOW}[01] 甲骨文救砖${RESET}"
     echo -e "${YELLOW}[02] 开启ROOT登录${RESET}"
     echo -e "${YELLOW}[03] 一键重装系统${RESET}"
@@ -40,7 +41,7 @@ menu() {
     echo -e "${YELLOW}[08] 安装oci-start${RESET}"
     echo -e "${GREEN}[88] 更新脚本${RESET}"
     echo -e "${GREEN}[99] 卸载脚本${RESET}"
-    echo -e "${GREEN}[00] 退出${RESET}"
+    echo -e "${YELLOW}[00] 退出${RESET}"
     echo -ne "${RED}请选择: ${RESET}"
     read choice
     case $choice in
